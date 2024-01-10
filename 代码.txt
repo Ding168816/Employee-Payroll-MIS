@@ -1,0 +1,67 @@
+Sub FilterData()
+
+    Dim ws As Worksheet
+
+    Dim rng As Range
+
+    Dim filteredRange As Range
+
+    Dim newWs As Worksheet
+
+    
+
+    ' 设置要筛选的工作表和数据范围
+
+    Set ws = ThisWorkbook.Worksheets("Sheet1")
+
+    Set rng = ws.Range("A1:D10") ' 假设数据在A1:D10范围内
+
+    
+
+    ' 清除上一次筛选结果
+
+    ws.AutoFilterMode = False
+
+    
+
+    ' 在第1列上应用筛选条件，这里筛选数值大于80的记录
+
+    rng.AutoFilter Field:=1, Criteria1:=">80", Operator:=xlAnd
+
+    
+
+    ' 处理筛选结果
+
+    Set filteredRange = rng.SpecialCells(xlCellTypeVisible)
+
+    
+
+    ' 在筛选结果中进行处理，例如复制到其他位置或进行其他操作
+
+    ' 这里以将筛选结果复制到新的工作表中为例
+
+    Set newWs = ThisWorkbook.Worksheets.Add
+
+    
+
+    filteredRange.Copy newWs.Range("A1")
+
+    
+
+    ' 关闭筛选
+
+    ws.AutoFilterMode = False
+
+    
+
+    ' 释放对象
+
+    Set newWs = Nothing
+
+    Set filteredRange = Nothing
+
+    Set rng = Nothing
+
+    Set ws = Nothing
+
+End Sub
